@@ -15,10 +15,10 @@ namespace Ecommerce_Website.Models
         public string ProductName { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }
-        [Display(Name = "Category")]
-        public virtual int CategoryID { get; set; }
+        [Display(Name = "SubSubCategory")]
+        public virtual int SubSubCategoryID { get; set; }
 
-        [ForeignKey("CategoryID")]
-        public virtual Category Product_Category { get; set; }
+        [ForeignKey("SubSubCategoryID")]
+        public virtual SubSubCategory Product_Category { get; set; }
     }
 }
