@@ -3,14 +3,16 @@ using Ecommerce_Website.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ecommerce_Website.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210528051432_Spec_table")]
+    partial class Spec_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,13 +120,9 @@ namespace Ecommerce_Website.Migrations
 
                     b.Property<string>("SpecValue");
 
-                    b.Property<int>("VariantID");
-
                     b.HasKey("SpecID");
 
                     b.HasIndex("ProductID");
-
-                    b.HasIndex("VariantID");
 
                     b.ToTable("specifications");
                 });
@@ -234,11 +232,6 @@ namespace Ecommerce_Website.Migrations
                     b.HasOne("Ecommerce_Website.Models.Product", "Products")
                         .WithMany()
                         .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Ecommerce_Website.Models.Variants", "Variants")
-                        .WithMany()
-                        .HasForeignKey("VariantID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

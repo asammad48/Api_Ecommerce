@@ -18,5 +18,11 @@ namespace Ecommerce_Website.Models
         public virtual Product Products { get; set; }
         public string SpecName { get; set; }
         public string SpecValue { get; set; }
+        [Display(Name = "Variants")]
+        public virtual int VariantID { get; set; }
+
+        [ForeignKey("VariantID")]
+        public virtual Variants Variants { get; set; }
+
     }
 }

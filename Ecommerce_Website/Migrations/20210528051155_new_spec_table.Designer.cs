@@ -3,14 +3,16 @@ using Ecommerce_Website.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ecommerce_Website.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210528051155_new_spec_table")]
+    partial class new_spec_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,29 +108,6 @@ namespace Ecommerce_Website.Migrations
                     b.ToTable("product_Variants");
                 });
 
-            modelBuilder.Entity("Ecommerce_Website.Models.Specification", b =>
-                {
-                    b.Property<int>("SpecID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductID");
-
-                    b.Property<string>("SpecName");
-
-                    b.Property<string>("SpecValue");
-
-                    b.Property<int>("VariantID");
-
-                    b.HasKey("SpecID");
-
-                    b.HasIndex("ProductID");
-
-                    b.HasIndex("VariantID");
-
-                    b.ToTable("specifications");
-                });
-
             modelBuilder.Entity("Ecommerce_Website.Models.SubCategory", b =>
                 {
                     b.Property<int>("SubCategoryID")
@@ -217,19 +196,6 @@ namespace Ecommerce_Website.Migrations
                 });
 
             modelBuilder.Entity("Ecommerce_Website.Models.Product_Variants", b =>
-                {
-                    b.HasOne("Ecommerce_Website.Models.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Ecommerce_Website.Models.Variants", "Variants")
-                        .WithMany()
-                        .HasForeignKey("VariantID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Ecommerce_Website.Models.Specification", b =>
                 {
                     b.HasOne("Ecommerce_Website.Models.Product", "Products")
                         .WithMany()
