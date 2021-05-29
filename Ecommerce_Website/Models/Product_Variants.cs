@@ -26,5 +26,6 @@ namespace Ecommerce_Website.Models
         public decimal Var_Price { get; set; }
         public decimal Var_Discount { get; set; }
         public int Var_Reviews { get; set; }
+        
     }
 }

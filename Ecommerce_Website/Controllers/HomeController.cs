@@ -35,6 +35,7 @@ namespace Ecommerce_Website.Controllers
             p.subSubCategories = await _context.subSubCategories.ToListAsync();
             p.category_Subs = await _context.Category_subCategory.ToListAsync();
             p.subCategory_Subs = await _context.SubCategory_SubSubcategory.ToListAsync();
+            p.specifications = await _context.specifications.ToListAsync();
             return p;
         }
 

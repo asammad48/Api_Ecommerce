@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce_Website.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210528112429_Variant_in_Specs")]
-    partial class Variant_in_Specs
+    [Migration("20210529064932_MyNewFortop")]
+    partial class MyNewFortop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,6 +98,8 @@ namespace Ecommerce_Website.Migrations
                     b.Property<int>("VariantID");
 
                     b.Property<int>("status");
+
+                    b.Property<int>("top");
 
                     b.HasKey("product_variant_ID");
 

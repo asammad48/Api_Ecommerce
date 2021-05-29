@@ -120,6 +120,8 @@ namespace Ecommerce_Website.Migrations
 
                     b.Property<int>("VariantID");
 
+                    b.Property<int>("top");
+
                     b.HasKey("SpecID");
 
                     b.HasIndex("ProductID");

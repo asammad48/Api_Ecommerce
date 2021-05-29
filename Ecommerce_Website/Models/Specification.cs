@@ -23,6 +23,6 @@ namespace Ecommerce_Website.Models
 
         [ForeignKey("VariantID")]
         public virtual Variants Variants { get; set; }
-
+        public int top { get; set; }
     }
 }

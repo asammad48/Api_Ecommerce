@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce_Website.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210524103544_New Database")]
-    partial class NewDatabase
+    [Migration("20210529065726_Soory_For_Top")]
+    partial class Soory_For_Top
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,13 +30,30 @@ namespace Ecommerce_Website.Migrations
 
                     b.Property<int>("Status");
 
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Ecommerce_Website.Models.Category_subCategory", b =>
+                {
+                    b.Property<int>("SubCategory_SubSubcategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryID");
+
                     b.Property<int>("SubCategoryID");
 
-                    b.HasKey("CategoryID");
+                    b.Property<int>("status");
+
+                    b.HasKey("SubCategory_SubSubcategoryID");
+
+                    b.HasIndex("CategoryID");
 
                     b.HasIndex("SubCategoryID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category_subCategory");
                 });
 
             modelBuilder.Entity("Ecommerce_Website.Models.Product", b =>
@@ -44,8 +61,6 @@ namespace Ecommerce_Website.Migrations
                     b.Property<int>("ProductID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryID");
 
                     b.Property<string>("Description");
 
@@ -55,9 +70,11 @@ namespace Ecommerce_Website.Migrations
 
                     b.Property<int>("Status");
 
+                    b.Property<int>("SubSubCategoryID");
+
                     b.HasKey("ProductID");
 
-                    b.HasIndex("CategoryID");
+                    b.HasIndex("SubSubCategoryID");
 
                     b.ToTable("products");
                 });
@@ -70,6 +87,14 @@ namespace Ecommerce_Website.Migrations
 
                     b.Property<int>("ProductID");
 
+                    b.Property<decimal>("Var_Discount");
+
+                    b.Property<decimal>("Var_Price");
+
+                    b.Property<int>("Var_Reviews");
+
+                    b.Property<int>("Var_Stock");
+
                     b.Property<int>("VariantID");
 
                     b.Property<int>("status");
@@ -81,6 +106,31 @@ namespace Ecommerce_Website.Migrations
                     b.HasIndex("VariantID");
 
                     b.ToTable("product_Variants");
+                });
+
+            modelBuilder.Entity("Ecommerce_Website.Models.Specification", b =>
+                {
+                    b.Property<int>("SpecID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<string>("SpecName");
+
+                    b.Property<string>("SpecValue");
+
+                    b.Property<int>("VariantID");
+
+                    b.Property<int>("top");
+
+                    b.HasKey("SpecID");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasIndex("VariantID");
+
+                    b.ToTable("specifications");
                 });
 
             modelBuilder.Entity("Ecommerce_Website.Models.SubCategory", b =>
@@ -96,6 +146,27 @@ namespace Ecommerce_Website.Migrations
                     b.HasKey("SubCategoryID");
 
                     b.ToTable("subCategories");
+                });
+
+            modelBuilder.Entity("Ecommerce_Website.Models.SubCategory_SubSubcategory", b =>
+                {
+                    b.Property<int>("SubCategory_SubSubcategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SubCategoryID");
+
+                    b.Property<int>("SubSubCategoryID");
+
+                    b.Property<int>("status");
+
+                    b.HasKey("SubCategory_SubSubcategoryID");
+
+                    b.HasIndex("SubCategoryID");
+
+                    b.HasIndex("SubSubCategoryID");
+
+                    b.ToTable("SubCategory_SubSubcategory");
                 });
 
             modelBuilder.Entity("Ecommerce_Website.Models.SubSubCategory", b =>
@@ -128,9 +199,14 @@ namespace Ecommerce_Website.Migrations
                     b.ToTable("variants");
                 });
 
-            modelBuilder.Entity("Ecommerce_Website.Models.Category", b =>
+            modelBuilder.Entity("Ecommerce_Website.Models.Category_subCategory", b =>
                 {
-                    b.HasOne("Ecommerce_Website.Models.SubCategory", "SubCategoryLink")
+                    b.HasOne("Ecommerce_Website.Models.Category", "Categories")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Ecommerce_Website.Models.SubCategory", "SubCategories")
                         .WithMany()
                         .HasForeignKey("SubCategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -138,9 +214,9 @@ namespace Ecommerce_Website.Migrations
 
             modelBuilder.Entity("Ecommerce_Website.Models.Product", b =>
                 {
-                    b.HasOne("Ecommerce_Website.Models.Category", "Product_Category")
+                    b.HasOne("Ecommerce_Website.Models.SubSubCategory", "Product_Category")
                         .WithMany()
-                        .HasForeignKey("CategoryID")
+                        .HasForeignKey("SubSubCategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -154,6 +230,32 @@ namespace Ecommerce_Website.Migrations
                     b.HasOne("Ecommerce_Website.Models.Variants", "Variants")
                         .WithMany()
                         .HasForeignKey("VariantID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Ecommerce_Website.Models.Specification", b =>
+                {
+                    b.HasOne("Ecommerce_Website.Models.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Ecommerce_Website.Models.Variants", "Variants")
+                        .WithMany()
+                        .HasForeignKey("VariantID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Ecommerce_Website.Models.SubCategory_SubSubcategory", b =>
+                {
+                    b.HasOne("Ecommerce_Website.Models.SubCategory", "SubCategories")
+                        .WithMany()
+                        .HasForeignKey("SubCategoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Ecommerce_Website.Models.SubSubCategory", "SubSubCategories")
+                        .WithMany()
+                        .HasForeignKey("SubSubCategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
