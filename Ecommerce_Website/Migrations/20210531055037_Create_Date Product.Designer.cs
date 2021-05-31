@@ -4,14 +4,16 @@ using Ecommerce_Website.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ecommerce_Website.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210531055037_Create_Date Product")]
+    partial class Create_DateProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,6 +67,8 @@ namespace Ecommerce_Website.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("ProductImage");
+
                     b.Property<string>("ProductName");
 
                     b.Property<int>("Status");
@@ -76,23 +80,6 @@ namespace Ecommerce_Website.Migrations
                     b.HasIndex("SubSubCategoryID");
 
                     b.ToTable("products");
-                });
-
-            modelBuilder.Entity("Ecommerce_Website.Models.Product_Images", b =>
-                {
-                    b.Property<int>("p_img_id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Images");
-
-                    b.Property<int>("ProductID");
-
-                    b.HasKey("p_img_id");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("images");
                 });
 
             modelBuilder.Entity("Ecommerce_Website.Models.Product_Variants", b =>
@@ -233,14 +220,6 @@ namespace Ecommerce_Website.Migrations
                     b.HasOne("Ecommerce_Website.Models.SubSubCategory", "Product_Category")
                         .WithMany()
                         .HasForeignKey("SubSubCategoryID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Ecommerce_Website.Models.Product_Images", b =>
-                {
-                    b.HasOne("Ecommerce_Website.Models.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

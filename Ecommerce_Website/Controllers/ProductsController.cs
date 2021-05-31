@@ -76,6 +76,7 @@ namespace Ecommerce_Website.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            product.CreationDate = DateTime.Now;
             _context.products.Add(product);
             await _context.SaveChangesAsync();
 

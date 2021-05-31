@@ -26,6 +26,6 @@ namespace Ecommerce_Website.Data
         public DbSet<Ecommerce_Website.Models.Category_subCategory> Category_subCategory { get; set; }
         public DbSet<Ecommerce_Website.Models.SubCategory_SubSubcategory> SubCategory_SubSubcategory { get; set; }
         public DbSet<Specification> specifications { get; set; }
-
+        public DbSet<Product_Images> images { get; set; }
     }
 }

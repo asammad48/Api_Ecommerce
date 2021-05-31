@@ -11,7 +11,6 @@ namespace Ecommerce_Website.Models
     {
         [Key]
         public int ProductID { get; set; }
-        public string ProductImage { get; set; }
         public string ProductName { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }
@@ -20,5 +19,6 @@ namespace Ecommerce_Website.Models
 
         [ForeignKey("SubSubCategoryID")]
         public virtual SubSubCategory Product_Category { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }
