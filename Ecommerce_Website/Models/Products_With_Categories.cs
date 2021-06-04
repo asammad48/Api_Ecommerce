@@ -16,7 +16,7 @@ namespace Ecommerce_Website.Models
       public  List<SubSubCategory> subSubCategories { get; set; } 
       public  List<SubCategory_SubSubcategory> subCategory_Subs { get; set; } 
       public List<Specification> specifications { get; set; }
-
+      public List<Product_Images> product_Images { get; set; }
 
      }
 }
